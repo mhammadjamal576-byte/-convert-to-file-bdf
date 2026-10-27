@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PNG/JPG الى BDF</title>
+<style>
+body{background:#09090b;color:#fff;font-family:system-ui;padding:20px;max-width:600px;margin:auto}
+.box{border:2px dashed #555;border-radius:16px;padding:30px;text-align:center;background:#18181b;margin-top:20px}
+.btn{background:#fff;color:#000;padding:12px 24px;border-radius:99px;font-weight:bold;cursor:pointer;display:inline-block}
+pre{font-size:9px;background:#000;padding:10px;border-radius:8px;max-height:250px;overflow:auto;white-space:pre-wrap;text-align:left;direction:ltr}
+img{max-width:100%;background:#fff;border-radius:8px;margin-top:10px}
+</style>
+</head>
+<body>
+<h1>PNG / JPG → BDF</h1>
+<p style="color:#aaa">ارفع صورة وسيحولها لملف BDF فوراً</p>
+<div class="box">
+<input type="file" id="file" accept=".png,.jpg,.jpeg" hidden>
+<label for="file" class="btn">اختر صورة</label>
+</div>
+<div id="out" style="display:none;margin-top:20px">
+<img id="preview"><canvas id="c" hidden></canvas>
+<div style="margin-top:15px">
+<label>Threshold: <span id="tv">128</span></label><br>
+<input type="range" id="th" min="0" max="255" value="128" style="width:100%">
+<label><input type="checkbox" id="inv"> عكس الالوان</label><br>
+<button onclick="reprocess()" style="width:100%;margin-top:10px;padding:10px;background:#27272a;color:#fff;border:0;border-radius:8px">اعادة المعالجة</button>
+</div>
+<pre id="bdf"></pre>
+<button onclick="download()" style="width:100%;margin-top:10px;padding:14px;background:#fff;color:#000;border:0;border-radius:12px;font-weight:bold">تحميل ملف .BDF</button>
+</div>
+<script>
+let pixels=[],W=0,H=0,fileName="image",previewUrl="",bdfText="";
+const file=document.getElementById('file'),out=document.getElementById('out'),preview=document.getElementById('preview'),c=document.getElementById('c'),th=document.getElementById('th'),tv=document.getElementById('tv'),inv=document.getElementById('inv'),bdfEl=document.getElementById('bdf');
+function toBDF(px,w,h){
+let s=`STARTFONT 2.1\nCOMMENT Generated\nFONT -CONVERTED-MEDIUM-R-NORMAL--${h}-${h}-75-75-C-${w}-ISO10646-1\nSIZE ${h} 75 75\nFONTBOUNDINGBOX ${w} ${h} 0 0\nSTARTPROPERTIES 4\nFONT_ASCENT ${h}\nFONT_DESCENT 0\nDEFAULT_CHAR 65\nCOPYRIGHT "Generated"\nENDPROPERTIES\nCHARS 1\nSTARTCHAR U+0041\nENCODING 65\nSWIDTH 500 0\nDWIDTH ${w} 0\nBBX ${w} ${h} 0 0\nBITMAP\n`;
+for(let y=0;y<h;y++){let bits="";for(let x=0;x<w;x++)bits+=px[y][x]?"1":"0";let pad=bits.padEnd(Math.ceil(bits.length/8)*8,"0");let hex="";for(let i=0;i<pad.length;i+=8)hex+=parseInt(pad.slice(i,i+8),2).toString(16).padStart(2,"0").toUpperCase();s+=hex+"\n";}
+return s+"ENDCHAR\nENDFONT\n";
+}
+function processImg(img,name){
+let max=128,w=img.width,h=img.height;if(w>max||h>max){let r=Math.min(max/w,max/h);w=Math.round(w*r);h=Math.round(h*r);}
+W=w;H=h;fileName=name.replace(/\.[^/.]+$/,"");c.width=w;c.height=h;let ctx=c.getContext("2d");ctx.drawImage(img,0,0,w,h);
+let d=ctx.getImageData(0,0,w,h).data;pixels=[];let t=+th.value,invv=inv.checked;
+for(let y=0;y<h;y++){let row=[];for(let x=0;x<w;x++){let i=(y*w+x)*4;let g=0.299*d[i]+0.587*d[i+1]+0.114*d[i+2];let on=g<t?1:0;if(invv)on=on?0:1;row.push(on);}pixels.push(row);}
+bdfText=toBDF(pixels,w,h);bdfEl.textContent=bdfText.slice(0,3000);out.style.display="block";
+}
+file.onchange=e=>{
+let f=e.target.files[0];if(!f)return;previewUrl=URL.createObjectURL(f);preview.src=previewUrl;
+let img=new Image();img.onload=()=>processImg(img,f.name);img.src=previewUrl;
+};
+function reprocess(){if(!previewUrl)return;let img=new Image();img.onload=()=>processImg(img,fileName);img.src=previewUrl;}
+th.oninput=()=>tv.textContent=th.value;
+function download(){let blob=new Blob([bdfText],{type:"text/plain"});let u=URL.createObjectURL(blob);let a=document.createElement("a");a.href=u;a.download=fileName+".bdf";a.click();}
+</script>
+</body>
+</html>
