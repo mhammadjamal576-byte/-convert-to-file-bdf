@@ -2,56 +2,77 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>PNG/JPG الى BDF</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>محول الصور الى BDF مجانا - PNG JPG to BDF Converter</title>
+<meta name="description" content="أفضل أداة مجانية لتحويل الصور PNG و JPG الى ملفات BDF للخطوط والمبرمجين. سريع وآمن ويعمل بدون رفع للسيرفر.">
+<meta name="keywords" content="BDF converter, PNG to BDF, JPG to BDF, تحويل الصور الى BDF">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
 <style>
-body{background:#09090b;color:#fff;font-family:system-ui;padding:20px;max-width:600px;margin:auto}
-.box{border:2px dashed #555;border-radius:16px;padding:30px;text-align:center;background:#18181b;margin-top:20px}
-.btn{background:#fff;color:#000;padding:12px 24px;border-radius:99px;font-weight:bold;cursor:pointer;display:inline-block}
-pre{font-size:9px;background:#000;padding:10px;border-radius:8px;max-height:250px;overflow:auto;white-space:pre-wrap;text-align:left;direction:ltr}
-img{max-width:100%;background:#fff;border-radius:8px;margin-top:10px}
+body{font-family:system-ui;background:#0a0a0a;color:#fff;margin:0;padding:20px;text-align:center}
+.container{max-width:700px;margin:auto}
+.card{background:#1a1a1a;border:1px dashed #444;border-radius:16px;padding:40px;margin:20px 0}
+.btn{background:#fff;color:#000;padding:14px 30px;border-radius:30px;border:0;font-weight:bold;font-size:18px;cursor:pointer}
+h1{font-size:36px}
+p{color:#aaa;line-height:1.8}
+.ad-box{background:#111;border:1px solid #222;padding:10px;margin:20px 0;color:#555;font-size:12px}
+footer{margin-top:50px;padding:20px;border-top:1px solid #222;color:#666;font-size:14px}
+footer a{color:#888;margin:0 10px;text-decoration:none}
 </style>
 </head>
 <body>
+<div class="container">
 <h1>PNG / JPG → BDF</h1>
-<p style="color:#aaa">ارفع صورة وسيحولها لملف BDF فوراً</p>
-<div class="box">
-<input type="file" id="file" accept=".png,.jpg,.jpeg" hidden>
-<label for="file" class="btn">اختر صورة</label>
+<p>أداة مجانية 100% لتحويل الصور الى صيغة BDF المستخدمة في برمجة الخطوط وشاشات LCD والمشاريع المدمجة. كل التحويل يتم داخل متصفحك بأمان تام.</p>
+
+<div class="ad-box">مساحة إعلانية - Google AdSense</div>
+
+<div class="card">
+<input type="file" id="file" accept="image/*" hidden>
+<button class="btn" onclick="document.getElementById('file').click()">اختر صورة</button>
+<div id="result" style="margin-top:20px"></div>
 </div>
-<div id="out" style="display:none;margin-top:20px">
-<img id="preview"><canvas id="c" hidden></canvas>
-<div style="margin-top:15px">
-<label>Threshold: <span id="tv">128</span></label><br>
-<input type="range" id="th" min="0" max="255" value="128" style="width:100%">
-<label><input type="checkbox" id="inv"> عكس الالوان</label><br>
-<button onclick="reprocess()" style="width:100%;margin-top:10px;padding:10px;background:#27272a;color:#fff;border:0;border-radius:8px">اعادة المعالجة</button>
+
+<div class="ad-box">مساحة إعلانية - Google AdSense</div>
+
+<h2>ما هو ملف BDF؟</h2>
+<p>BDF هو اختصار لـ Glyph Bitmap Distribution Format، وهي صيغة ملفات لتخزين الخطوط النقطية. يستخدمها المطورون في أنظمة لينكس، شاشات OLED، والطابعات الحرارية.</p>
+
+<h2>كيف تستخدم الأداة؟</h2>
+<p>1. اضغط اختر صورة - 2. سيتم تحويلها تلقائياً - 3. حمل ملف BDF الجديد</p>
+
+<footer>
+<a href="#" onclick="alert('نحن لا نجمع أي بيانات. كل التحويل يتم في جهازك.')">سياسة الخصوصية</a>
+<a href="#" onclick="alert('تواصل معنا: mhammadjamal576-byte@github.io')">اتصل بنا</a>
+<a href="#" onclick="alert('أداة مجانية للمطورين والمصممين.')">من نحن</a>
+<p>© 2026 BDF Converter - جميع الحقوق محفوظة</p>
+</footer>
 </div>
-<pre id="bdf"></pre>
-<button onclick="download()" style="width:100%;margin-top:10px;padding:14px;background:#fff;color:#000;border:0;border-radius:12px;font-weight:bold">تحميل ملف .BDF</button>
-</div>
+
 <script>
-let pixels=[],W=0,H=0,fileName="image",previewUrl="",bdfText="";
-const file=document.getElementById('file'),out=document.getElementById('out'),preview=document.getElementById('preview'),c=document.getElementById('c'),th=document.getElementById('th'),tv=document.getElementById('tv'),inv=document.getElementById('inv'),bdfEl=document.getElementById('bdf');
-function toBDF(px,w,h){
-let s=`STARTFONT 2.1\nCOMMENT Generated\nFONT -CONVERTED-MEDIUM-R-NORMAL--${h}-${h}-75-75-C-${w}-ISO10646-1\nSIZE ${h} 75 75\nFONTBOUNDINGBOX ${w} ${h} 0 0\nSTARTPROPERTIES 4\nFONT_ASCENT ${h}\nFONT_DESCENT 0\nDEFAULT_CHAR 65\nCOPYRIGHT "Generated"\nENDPROPERTIES\nCHARS 1\nSTARTCHAR U+0041\nENCODING 65\nSWIDTH 500 0\nDWIDTH ${w} 0\nBBX ${w} ${h} 0 0\nBITMAP\n`;
-for(let y=0;y<h;y++){let bits="";for(let x=0;x<w;x++)bits+=px[y][x]?"1":"0";let pad=bits.padEnd(Math.ceil(bits.length/8)*8,"0");let hex="";for(let i=0;i<pad.length;i+=8)hex+=parseInt(pad.slice(i,i+8),2).toString(16).padStart(2,"0").toUpperCase();s+=hex+"\n";}
-return s+"ENDCHAR\nENDFONT\n";
-}
-function processImg(img,name){
-let max=128,w=img.width,h=img.height;if(w>max||h>max){let r=Math.min(max/w,max/h);w=Math.round(w*r);h=Math.round(h*r);}
-W=w;H=h;fileName=name.replace(/\.[^/.]+$/,"");c.width=w;c.height=h;let ctx=c.getContext("2d");ctx.drawImage(img,0,0,w,h);
-let d=ctx.getImageData(0,0,w,h).data;pixels=[];let t=+th.value,invv=inv.checked;
-for(let y=0;y<h;y++){let row=[];for(let x=0;x<w;x++){let i=(y*w+x)*4;let g=0.299*d[i]+0.587*d[i+1]+0.114*d[i+2];let on=g<t?1:0;if(invv)on=on?0:1;row.push(on);}pixels.push(row);}
-bdfText=toBDF(pixels,w,h);bdfEl.textContent=bdfText.slice(0,3000);out.style.display="block";
-}
-file.onchange=e=>{
-let f=e.target.files[0];if(!f)return;previewUrl=URL.createObjectURL(f);preview.src=previewUrl;
-let img=new Image();img.onload=()=>processImg(img,f.name);img.src=previewUrl;
+document.getElementById('file').addEventListener('change', function(e){
+let file=e.target.files[0]; if(!file) return;
+let r=document.getElementById('result');
+r.innerHTML='⏳ جاري التحويل...';
+let reader=new FileReader();
+reader.onload=function(){
+let img=new Image();
+img.onload=function(){
+let c=document.createElement('canvas');
+c.width=img.width; c.height=img.height;
+let ctx=c.getContext('2d');
+ctx.drawImage(img,0,0);
+let data=ctx.getImageData(0,0,c.width,c.height).data;
+let bdf=`STARTFONT 2.1\nFONT ${file.name}\nSIZE 16 75 75\nFONTBOUNDINGBOX ${c.width} ${c.height} 0 0\nSTARTPROPERTIES 2\nFONT_ASCENT ${c.height}\nFONT_DESCENT 0\nENDPROPERTIES\nCHARS 1\nSTARTCHAR C1\nENCODING 65\nSWIDTH 500 0\nDWIDTH ${c.width} 0\nBBX ${c.width} ${c.height} 0 0\nBITMAP\n`;
+for(let y=0;y<c.height;y++){let row='';for(let x=0;x<c.width;x++){let i=(y*c.width+x)*4; let v=data[i]<128?1:0; row+=v? '1':'0';} let hex=parseInt(row.padEnd(8,'0').slice(0,8),2).toString(16).padStart(2,'0').toUpperCase(); bdf+=hex+'\n';}
+bdf+=`ENDCHAR\nENDFONT\n`;
+let blob=new Blob([bdf],{type:'text/plain'});
+let url=URL.createObjectURL(blob);
+r.innerHTML=`<p>✅ تم التحويل!</p><a href="${url}" download="${file.name}.bdf" class="btn" style="display:inline-block;text-decoration:none">تحميل ملف BDF</a>`;
 };
-function reprocess(){if(!previewUrl)return;let img=new Image();img.onload=()=>processImg(img,fileName);img.src=previewUrl;}
-th.oninput=()=>tv.textContent=th.value;
-function download(){let blob=new Blob([bdfText],{type:"text/plain"});let u=URL.createObjectURL(blob);let a=document.createElement("a");a.href=u;a.download=fileName+".bdf";a.click();}
+img.src=reader.result;
+};
+reader.readAsDataURL(file);
+});
 </script>
 </body>
 </html>
