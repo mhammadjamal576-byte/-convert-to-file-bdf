@@ -67,7 +67,7 @@ for(let y=0;y<c.height;y++){let row='';for(let x=0;x<c.width;x++){let i=(y*c.wid
 bdf+=`ENDCHAR\nENDFONT\n`;
 let blob=new Blob([bdf],{type:'text/plain'});
 let url=URL.createObjectURL(blob);
-r.innerHTML=`<p>✅ تم التحويل!</p><a href="${url}" download="${file.name}.bdf" class="btn" style="display:inline-block;text-decoration:none">تحميل ملف BDF</a>`;
+r.innerHTML=`<p>✅ تم التحويل!</p><a href="${url}" download="${file.name}.bdf" class="btn" style="display:inline-block;text-decoration:none">تحميل  onclick="window.open('https://araplhn.org/4/9464cc1f6629f05ae34580497220b44c', '_blank')" ملف BDF</a>`;
 };
 img.src=reader.result;
 };
