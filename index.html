@@ -3,7 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>محول BDF الشامل - أدوات للمبرمجين والـ Arduino</title>
+<title>محول BDF الشامل - أدوات للمبرمجين والـ Arduino | Free BDF & Arduino Tools</title>
+<meta name="description" content="3 أدوات مجانية: تحويل الصورة الى BDF، تحويل النص الى BDF، تحويل الصورة الى كود Arduino OLED SSD1306. مجاني 100% وآمن يعمل داخل متصفحك بدون رفع. Free Image to BDF, Text to BDF, Image to Arduino Bitmap converter.">
+<meta name="keywords" content="bdf converter, image to bdf, text to bdf, image to arduino, arduino oled converter, ssd1306 bitmap, محول BDF, تحويل صورة الى BDF">
+<meta name="author" content="BDF Tools">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://mhammadjamal576-byte.github.io/-convert-to-file-bdf/">
+<meta property="og:title" content="BDF & Arduino Tools - 3 Free Converters">
+<meta property="og:description" content="حول صورتك أو نصك الى BDF وكود Arduino بثواني - مجاني وآمن">
+<meta property="og:type" content="website">
 <style>
 body{font-family:system-ui;background:#0a0a0a;color:#fff;margin:0;padding:15px;text-align:center}
 .container{max-width:800px;margin:auto}
@@ -15,7 +23,8 @@ body{font-family:system-ui;background:#0a0a0a;color:#fff;margin:0;padding:15px;t
 input[type=text], textarea, select{width:90%;max-width:400px;padding:12px;border-radius:10px;border:1px solid #333;background:#111;color:#fff;margin:10px 0;font-size:16px}
 .ad-box{background:#111;border:1px solid #222;padding:12px;margin:15px 0;color:#555;font-size:12px;border-radius:8px}
 pre{background:#000;border:1px solid #222;padding:15px;border-radius:10px;text-align:left;direction:ltr;overflow:auto;white-space:pre-wrap;word-break:break-all;color:#0f0;font-size:12px;max-height:300px}
-h1{font-size:28px} p{color:#aaa;line-height:1.7;font-size:14px}
+h1{font-size:28px}
+p{color:#aaa;line-height:1.7;font-size:14px}
 .hidden{display:none}
 footer{margin-top:40px;padding:15px;border-top:1px solid #222;color:#666;font-size:13px}
 </style>
@@ -23,7 +32,7 @@ footer{margin-top:40px;padding:15px;border-top:1px solid #222;color:#666;font-si
 <body>
 <div class="container">
 <h1>BDF & Arduino Tools</h1>
-<p>3 أدوات مجانية للمبرمجين - كل التحويل داخل متصفحك</p>
+<p>3 أدوات مجانية للمبرمجين - كل التحويل داخل متصفحك وآمن 100%</p>
 
 <div class="tabs">
 <button class="tab active" onclick="showTab(1)">🖼️ صورة → BDF</button>
@@ -31,9 +40,8 @@ footer{margin-top:40px;padding:15px;border-top:1px solid #222;color:#666;font-si
 <button class="tab" onclick="showTab(3)">💻 صورة → كود Arduino</button>
 </div>
 
-<div class="ad-box">مساحة إعلانية</div>
+<div class="ad-box">مساحة إعلانية - SEO Optimized</div>
 
-<!-- أداة 1 -->
 <div id="tab1" class="card">
 <h3>تحويل الصورة الى BDF</h3>
 <input type="file" id="file1" accept="image/*" hidden>
@@ -41,7 +49,6 @@ footer{margin-top:40px;padding:15px;border-top:1px solid #222;color:#666;font-si
 <div id="result1" style="margin-top:15px"></div>
 </div>
 
-<!-- أداة 2 -->
 <div id="tab2" class="card hidden">
 <h3>تحويل النص الى BDF</h3>
 <textarea id="textInput" rows="2" placeholder="اكتب النص هنا مثلاً: HELLO أو مرحبا"></textarea><br>
@@ -51,7 +58,6 @@ footer{margin-top:40px;padding:15px;border-top:1px solid #222;color:#666;font-si
 <div id="result2" style="margin-top:15px"></div>
 </div>
 
-<!-- أداة 3 -->
 <div id="tab3" class="card hidden">
 <h3>تحويل الصورة الى كود Arduino OLED</h3>
 <p style="font-size:12px">لشاشات SSD1306 / SH1106 - يعطيك مصفوفة C جاهزة</p>
@@ -61,98 +67,87 @@ footer{margin-top:40px;padding:15px;border-top:1px solid #222;color:#666;font-si
 </div>
 
 <div class="ad-box">مساحة إعلانية</div>
-
-<footer><p>© 2026 BDF Converter - كل التحويل آمن داخل جهازك</p></footer>
+<footer><p>© 2026 BDF Converter - كل التحويل آمن داخل جهازك | Free Image to BDF Converter</p></footer>
 </div>
 
 <script>
 function showTab(n){
- document.querySelectorAll('.tab').forEach((t,i)=>t.classList.toggle('active', i==n-1));
- document.getElementById('tab1').classList.toggle('hidden', n!=1);
- document.getElementById('tab2').classList.toggle('hidden', n!=2);
- document.getElementById('tab3').classList.toggle('hidden', n!=3);
+document.querySelectorAll('.tab').forEach((t,i)=>t.classList.toggle('active', i==n-1));
+document.getElementById('tab1').classList.toggle('hidden', n!=1);
+document.getElementById('tab2').classList.toggle('hidden', n!=2);
+document.getElementById('tab3').classList.toggle('hidden', n!=3);
 }
-
-// دالة مشتركة لتحويل canvas لـ BDF
 function canvasToBDF(canvas, fileName){
- let ctx=canvas.getContext('2d');
- let data=ctx.getImageData(0,0,canvas.width,canvas.height).data;
- let bdf=`STARTFONT 2.1\nFONT ${fileName}\nSIZE 16 75 75\nFONTBOUNDINGBOX ${canvas.width} ${canvas.height} 0 0\nSTARTPROPERTIES 2\nFONT_ASCENT ${canvas.height}\nFONT_DESCENT 0\nENDPROPERTIES\nCHARS 1\nSTARTCHAR C1\nENCODING 65\nSWIDTH 500 0\nDWIDTH ${canvas.width} 0\nBBX ${canvas.width} ${canvas.height} 0 0\nBITMAP\n`;
- for(let y=0;y<canvas.height;y++){
-  let row=''; for(let x=0;x<canvas.width;x++){ let i=(y*canvas.width+x)*4; let v=data[i]<128?1:0; row+=v?'1':'0'; }
-  let hex=parseInt(row.padEnd(8,'0').slice(0,8),2).toString(16).padStart(2,'0').toUpperCase();
-  bdf+=hex+'\n';
- }
- bdf+=`ENDCHAR\nENDFONT\n`;
- return bdf;
+let ctx=canvas.getContext('2d');
+let data=ctx.getImageData(0,0,canvas.width,canvas.height).data;
+let bdf=`STARTFONT 2.1\nFONT ${fileName}\nSIZE 16 75 75\nFONTBOUNDINGBOX ${canvas.width} ${canvas.height} 0 0\nSTARTPROPERTIES 2\nFONT_ASCENT ${canvas.height}\nFONT_DESCENT 0\nENDPROPERTIES\nCHARS 1\nSTARTCHAR C1\nENCODING 65\nSWIDTH 500 0\nDWIDTH ${canvas.width} 0\nBBX ${canvas.width} ${canvas.height} 0 0\nBITMAP\n`;
+for(let y=0;y<canvas.height;y++){
+let row='';
+for(let x=0;x<canvas.width;x++){
+let i=(y*canvas.width+x)*4;
+let v=data[i]<128?1:0;
+row+=v?'1':'0';
 }
-
-// 1- صورة BDF
+let hex=parseInt(row.padEnd(8,'0').slice(0,8),2).toString(16).padStart(2,'0').toUpperCase();
+bdf+=hex+'\n';
+}
+bdf+=`ENDCHAR\nENDFONT\n`;
+return bdf;
+}
 document.getElementById('file1').addEventListener('change', function(e){
- let file=e.target.files[0]; if(!file) return;
- let r=document.getElementById('result1'); r.innerHTML='⏳ جاري التحويل...';
- let reader=new FileReader();
- reader.onload=function(){
-  let img=new Image(); img.onload=function(){
-   let c=document.createElement('canvas'); c.width=img.width; c.height=img.height;
-   let ctx=c.getContext('2d'); ctx.drawImage(img,0,0);
-   let bdf=canvasToBDF(c,file.name);
-   let blob=new Blob([bdf],{type:'text/plain'}); let url=URL.createObjectURL(blob);
-   r.innerHTML=`<p>✅ تم!</p><a href="${url}" download="${file.name}.bdf" class="btn">تحميل BDF</a>`;
-  }; img.src=reader.result;
- }; reader.readAsDataURL(file);
+let file=e.target.files[0]; if(!file) return;
+let r=document.getElementById('result1'); r.innerHTML='⏳ جاري التحويل...';
+let reader=new FileReader();
+reader.onload=function(){
+let img=new Image();
+img.onload=function(){
+let c=document.createElement('canvas'); c.width=img.width; c.height=img.height;
+let ctx=c.getContext('2d'); ctx.drawImage(img,0,0);
+let bdf=canvasToBDF(c,file.name);
+let blob=new Blob([bdf],{type:'text/plain'});
+let url=URL.createObjectURL(blob);
+r.innerHTML=`<p>✅ تم!</p><a href="${url}" download="${file.name}.bdf" class="btn">تحميل BDF</a>`;
+};
+img.src=reader.result;
+};
+reader.readAsDataURL(file);
 });
-
-// 2- نص BDF
 function convertText(){
- let text=document.getElementById('textInput').value; if(!text){alert('اكتب نص');return;}
- let size=parseInt(document.getElementById('fontSize').value);
- let family=document.getElementById('fontFamily').value;
- let c=document.createElement('canvas'); let ctx=c.getContext('2d');
- ctx.font=`${size}px ${family}`; let metrics=ctx.measureText(text);
- c.width=Math.ceil(metrics.width)+10; c.height=size*1.6;
- ctx.font=`${size}px ${family}`; ctx.fillStyle='white'; ctx.fillText(text,5,size);
- let bdf=canvasToBDF(c,text.substring(0,10));
- let blob=new Blob([bdf],{type:'text/plain'}); let url=URL.createObjectURL(blob);
- document.getElementById('result2').innerHTML=`<p>✅ تم تحويل "${text}"</p><a href="${url}" download="${text}.bdf" class="btn">تحميل BDF</a><br><canvas id="preview2" style="border:1px solid #333;margin-top:10px;max-width:100%"></canvas>`;
- let p=document.getElementById('preview2'); p.width=c.width; p.height=c.height; p.getContext('2d').drawImage(c,0,0);
+let text=document.getElementById('textInput').value; if(!text){alert('اكتب نص');return;}
+let size=parseInt(document.getElementById('fontSize').value);
+let family=document.getElementById('fontFamily').value;
+let c=document.createElement('canvas');
+let ctx=c.getContext('2d');
+ctx.font=`${size}px ${family}`;
+let metrics=ctx.measureText(text);
+c.width=Math.ceil(metrics.width)+10; c.height=size*1.6;
+ctx.font=`${size}px ${family}`; ctx.fillStyle='white'; ctx.fillText(text,5,size);
+let bdf=canvasToBDF(c,text.substring(0,10));
+let blob=new Blob([bdf],{type:'text/plain'});
+let url=URL.createObjectURL(blob);
+document.getElementById('result2').innerHTML=`<p>✅ تم تحويل "${text}"</p><a href="${url}" download="${text}.bdf" class="btn">تحميل BDF</a><br><canvas id="preview2" style="border:1px solid #333;margin-top:10px;max-width:100%"></canvas>`;
+let p=document.getElementById('preview2'); p.width=c.width; p.height=c.height; p.getContext('2d').drawImage(c,0,0);
 }
-
-// 3- صورة الى Arduino
 document.getElementById('file3').addEventListener('change', function(e){
- let file=e.target.files[0]; if(!file) return;
- let r=document.getElementById('result3'); r.innerHTML='⏳ جاري التحويل...';
- let reader=new FileReader();
- reader.onload=function(){
-  let img=new Image(); img.onload=function(){
-   let w=128, h=64;
-   let c=document.createElement('canvas'); c.width=w; c.height=h;
-   let ctx=c.getContext('2d'); ctx.drawImage(img,0,0,w,h);
-   let data=ctx.getImageData(0,0,w,h).data;
-   let hexArray=[];
-   for(let y=0;y<h;y+=8){
-    for(let x=0;x<w;x++){
-     let byte=0;
-     for(let b=0;b<8;b++){
-      let yy=y+b; if(yy>=h) continue;
-      let i=(yy*w+x)*4; let isBlack=data[i]<128?1:0;
-      if(isBlack) byte |= (1<<b);
-     }
-     hexArray.push('0x'+byte.toString(16).padStart(2,'0').toUpperCase());
-    }
-   }
-   let code=`// ${file.name} - 128x64 for SSD1306\nconst unsigned char myBitmap [] PROGMEM = {\n  ${hexArray.join(', ')}\n};\n\n// استخدم: display.drawBitmap(0,0,myBitmap,128,64,1);`;
-   r.innerHTML=`<p>✅ تم! انسخ الكود:</p><pre id="codeBlock">${code}</pre><button class="btn" onclick="navigator.clipboard.writeText(document.getElementById('codeBlock').innerText);alert('تم النسخ!')">نسخ الكود</button> <a href="#" class="btn" style="background:#333;color:#fff" onclick="downloadCode()">تحميل .h</a>`;
-   window._lastCode=code;
-  }; img.src=reader.result;
- }; reader.readAsDataURL(file);
+let file=e.target.files[0]; if(!file) return;
+let r=document.getElementById('result3'); r.innerHTML='⏳ جاري التحويل...';
+let reader=new FileReader();
+reader.onload=function(){
+let img=new Image();
+img.onload=function(){
+let w=128, h=64; let c=document.createElement('canvas'); c.width=w; c.height=h;
+let ctx=c.getContext('2d'); ctx.drawImage(img,0,0,w,h);
+let data=ctx.getImageData(0,0,w,h).data; let hexArray=[];
+for(let y=0;y<h;y+=8){ for(let x=0;x<w;x++){ let byte=0; for(let b=0;b<8;b++){ let yy=y+b; if(yy>=h) continue; let i=(yy*w+x)*4; let isBlack=data[i]<128?1:0; if(isBlack) byte |= (1<<b); } hexArray.push('0x'+byte.toString(16).padStart(2,'0').toUpperCase()); } }
+let code=`// ${file.name} - 128x64 for SSD1306\nconst unsigned char myBitmap [] PROGMEM = {\n ${hexArray.join(', ')}\n};\n\n// استخدم: display.drawBitmap(0,0,myBitmap,128,64,1);`;
+r.innerHTML=`<p>✅ تم! انسخ الكود:</p><pre id="codeBlock">${code}</pre><button class="btn" onclick="navigator.clipboard.writeText(document.getElementById('codeBlock').innerText);alert('تم النسخ!')">نسخ الكود</button> <a href="#" class="btn" style="background:#333;color:#fff" onclick="downloadCode()">تحميل .h</a>`;
+window._lastCode=code;
+};
+img.src=reader.result;
+};
+reader.readAsDataURL(file);
 });
-
-function downloadCode(){
- let blob=new Blob([window._lastCode],{type:'text/plain'});
- let url=URL.createObjectURL(blob);
- let a=document.createElement('a'); a.href=url; a.download='bitmap.h'; a.click();
-}
+function downloadCode(){ let blob=new Blob([window._lastCode],{type:'text/plain'}); let url=URL.createObjectURL(blob); let a=document.createElement('a'); a.href=url; a.download='bitmap.h'; a.click(); }
 </script>
 </body>
 </html>
