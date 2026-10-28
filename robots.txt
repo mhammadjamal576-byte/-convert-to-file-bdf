@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://mhammadjamal576-byte.github.io/-convert-to-file-bdf/sitemap.xml
